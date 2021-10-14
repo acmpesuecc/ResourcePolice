@@ -54,6 +54,31 @@ def diskNotif():
 
     o.show_toast("ResourcePolice", "Disk Usage high!", duration = 10)
 
+LOOKUP = {
+    'rp.start': start,
+    'rp.stop': stop,
+    'rp.quit': quit,
+    'rp.network': showNetworkResource
+} # lookup table for user-defined commands 
+
+def stop():
+
+    # complete this function to stop monitoring
+
+    pass
+
+def quit():
+
+    # complete this function to quit ResourcePolice
+
+    pass
+
+def showNetworkResource():
+
+    # complete this function to monitor system network resource
+
+    pass
+
 def delete_last_line():
 
     # This function refreshes resource variables
