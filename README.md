@@ -1,6 +1,6 @@
 # ResourcePolice
 
-ResourcePolice is a simple system resource monitoring program. This repo is beginner-friendly.
+ResourcePolice is a simple system resource monitoring program for Windows 10. This repo is beginner-friendly.
 
 ### Langauge used:
 
