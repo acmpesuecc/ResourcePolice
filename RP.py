@@ -27,7 +27,7 @@ def start():
         if diskUse > 90.0:
             diskNotif()
 
-        time.sleep(2)
+        time.sleep(1.5)
         delete_last_line()
         
 def CPUnotif():
@@ -54,12 +54,12 @@ def diskNotif():
 
     o.show_toast("ResourcePolice", "Disk Usage high!", duration = 10)
 
-LOOKUP = {
-    'rp.start': start,
-    'rp.stop': stop,
-    'rp.quit': quit,
-    'rp.network': showNetworkResource
-} # lookup table for user-defined commands 
+# LOOKUP = {
+#     'rp.start': start,
+#     'rp.stop': stop,
+#     'rp.quit': quit,
+#     'rp.network': showNetworkResource
+# } # lookup table for user-defined commands 
 
 def stop():
 
