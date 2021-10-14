@@ -4,6 +4,8 @@ import time
 import sys
 import win10toast as w10Notif
 
+TIME_DELAY = 1.5
+
 def start():
 
     # This function starts the monitoring process 
@@ -27,7 +29,7 @@ def start():
         if diskUse > 90.0:
             diskNotif()
 
-        time.sleep(1.5)
+        time.sleep(TIME_DELAY)
         delete_last_line()
         
 def CPUnotif():
