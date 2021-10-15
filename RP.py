@@ -2,7 +2,7 @@ import psutil
 import os
 import time
 import sys
-# import win10toast as w10Notif
+import win10toast as w10Notif
 
 TIME_DELAY = 1.5
 
@@ -16,19 +16,18 @@ def get_size(bytes, suffix="B"):
 def start():
     # This function starts the monitoring process 
 
-    print("| Memory | CPU | Disk |")
     while(True):
         vMem = psutil.virtual_memory().percent
         cpuUtil = psutil.cpu_percent()
         cpuFreq = psutil.cpu_freq()
         os.sep
         diskUse = psutil.disk_usage(os.sep).percent
-
+        print("| Memory | CPU | Disk |")
         print("|  {}  | {} | {} |".format(str(vMem), str(cpuUtil), str(diskUse)))
 
         # get all network interfaces (virtual and physical)
         if_addrs = psutil.net_if_addrs()
-        print(if_addrs)
+        # print(if_addrs)
         for interface_name, interface_addresses in if_addrs.items():
             for address in interface_addresses:
                 print(f"=== Interface: {interface_name} ===")
@@ -115,5 +114,8 @@ def delete_last_line():
     sys.stdout.write(CURSOR_UP_ONE)
     sys.stdout.write(ERASE_LINE) 
 
-start()
+if __name__ == '__main__':
+    while True:
+        start()
+        time.sleep(TIME_DELAY)
 
