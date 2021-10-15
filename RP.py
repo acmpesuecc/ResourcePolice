@@ -3,7 +3,7 @@ import os
 import time
 import sys
 import win10toast as w10Notif
-
+from os import name, system
 TIME_DELAY = 1.5
 
 def start():
@@ -79,32 +79,44 @@ def showNetworkResource():
 
     # complete this function to monitor system network resource
     #print("\n_____________________________________________________Network Monitoring_____________________________________________________________\n")
-    print("| Bytes_sent | Bytes_received | Packets_sent | Packets_received | Error_in| Error_out | Dropped_in | Dropped_out")
+    print("| Bytes_sent \t\t | Bytes_rcvd\t\t | Pakts_sent \t\t | Pakts_rcvd\t\t ")
     while(True):
         Bytes_sent, Bytes_received, Packets_sent, Packets_received = list(psutil.net_io_counters())[:4]
-        Errin, Errout, Dropin, Dropout = list(psutil.net_io_counters())[4:]
+        #Errin, Errout, Dropin, Dropout = list(psutil.net_io_counters())[4:]
         os.sep
         diskUse = psutil.disk_usage(os.sep).percent
 
-        print(f"| {Bytes_sent}    | {Bytes_received}      | {Packets_sent}        | {Packets_received} \t\t| {Errin} \t  | {Errout} \t      | {Dropin} \t   | {Dropout} ")
+        print(f"| {round(Bytes_sent/1000, 3)}KB\t\t | {round(Bytes_received/1000, 3)}KB\t\t | {Packets_sent}  \t\t | {Packets_received} ", end = '\r')
 
         time.sleep(TIME_DELAY)
-        delete_last_line()
+        # delete_last_line()
+
 
 def delete_last_line():
 
     # This function refreshes resource variables
 
     # Checking if the working system is a Windows machine. Changes console setting if that's the case.
-    if os.name == 'nt':
-        from ctypes import windll
-        k = windll.kernel32
-        k.SetConsoleMode(k.GetStdHandle(-11), 7)
+    # if os.name == 'nt':
+    #     from ctypes import windll
+    #     k = windll.kernel32
+    #     k.SetConsoleMode(k.GetStdHandle(-11), 7)
         
-    CURSOR_UP_ONE = '\x1b[1A'
-    ERASE_LINE = '\x1b[2K'
+    # CURSOR_UP_ONE = '\x1b[1A'
+    # ERASE_LINE = '\x1b[2K'
+    CURSOR_UP_ONE = '\033[F'
+    ERASE_LINE = '\033[K'
     sys.stdout.write(CURSOR_UP_ONE)
     sys.stdout.write(ERASE_LINE)
+
+def refresh_screen():
+    # for windows
+    if name == 'nt':
+        _ = system('cls')
+  
+    # for mac and linux
+    else:
+        _ = system('clear')
 
 # start()
 showNetworkResource()
