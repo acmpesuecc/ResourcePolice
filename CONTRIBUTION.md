@@ -2,7 +2,7 @@
 Welcome! Thank you for showing interest in this repo! These are some rules that you must follow to contribute to this repo:
 
 ## Contributing Rules
-1. Make sure you have installed the requirements. You can do so by typing `python -m pip install -r requirements.txt` in the command prompt.
+1. Make sure you have installed the requirements. You can do so by typing `pip install -r requirements.txt` in the command prompt.
 2. Note that to check your changes twice before PR.
 3. Comments and formatting are important, remember to use adequate spacing and use tabs for indentation.
 
