@@ -102,10 +102,10 @@ def delete_last_line():
     #     k = windll.kernel32
     #     k.SetConsoleMode(k.GetStdHandle(-11), 7)
         
-    # CURSOR_UP_ONE = '\x1b[1A'
-    # ERASE_LINE = '\x1b[2K'
-    CURSOR_UP_ONE = '\033[F'
-    ERASE_LINE = '\033[K'
+    CURSOR_UP_ONE = '\x1b[1A'
+    ERASE_LINE = '\x1b[2K'
+    # CURSOR_UP_ONE = '\033[F'
+    # ERASE_LINE = '\033[K'
     sys.stdout.write(CURSOR_UP_ONE)
     sys.stdout.write(ERASE_LINE)
 
