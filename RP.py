@@ -95,6 +95,7 @@ def delete_last_line():
 
     # This function refreshes resource variables
 
+    # Checking if the working system is a Windows machine. Changes console setting if that's the case.
     if os.name == 'nt':
         from ctypes import windll
         k = windll.kernel32
