@@ -2,13 +2,14 @@ import psutil
 import os
 import time
 import sys
-import win10toast as w10Notif
+import plyer
 
 TIME_DELAY = 1.5
 
+
 def start():
 
-    # This function starts the monitoring process 
+    # This function starts the monitoring process
 
     print("| Memory | CPU | Disk |")
     while(True):
@@ -18,7 +19,8 @@ def start():
         os.sep
         diskUse = psutil.disk_usage(os.sep).percent
 
-        print("|  {}  | {} | {} |".format(str(vMem), str(cpuUtil), str(diskUse)))
+        print("|  {}  | {} | {} |".format(
+            str(vMem), str(cpuUtil), str(diskUse)))
 
         if cpuUtil > 80.0:
             CPUnotif()
@@ -31,37 +33,36 @@ def start():
 
         time.sleep(TIME_DELAY)
         delete_last_line()
-        
+
+
 def CPUnotif():
 
-    # This function is to send in alert notifications in case of high CPU usage
+    # This function is to send in alert notifications in case of high CPU usage for 10s
 
-    n = w10Notif.ToastNotifier()
+    plyer.notification.notify("ResourcePolice", "CPU Usage high!", duration=10)
 
-    n.show_toast("ResourcePolice", "CPU Usage high!", duration = 10)
 
 def memNotif():
 
-    # This function is to send in alert notifications in case of high CPU usage
+    # This function is to send in alert notifications in case of high RAM usage for 10s
 
-    m = w10Notif.ToastNotifier()
+    plyer.notification.notify(
+        "ResourcePolice", "Memory Usage high!", timeout=10)
 
-    m.show_toast("ResourcePolice", "Memory Usage high!", duration = 10)
 
 def diskNotif():
 
-    # This function is to send in alert notifications in case of high CPU usage
+    # This function is to send in alert notifications in case of high disk usage for 10s
 
-    o = w10Notif.ToastNotifier()
-
-    o.show_toast("ResourcePolice", "Disk Usage high!", duration = 10)
+    plyer.notification.notify("ResourcePolice", "Disk Usage high!", timeout=10)
 
 # LOOKUP = {
 #     'rp.start': start,
 #     'rp.stop': stop,
 #     'rp.quit': quit,
 #     'rp.network': showNetworkResource
-# } # lookup table for user-defined commands 
+# } # lookup table for user-defined commands
+
 
 def stop():
 
@@ -69,17 +70,20 @@ def stop():
 
     pass
 
+
 def quit():
 
     # complete this function to quit ResourcePolice
 
     pass
 
+
 def showNetworkResource():
 
     # complete this function to monitor system network resource
 
     pass
+
 
 def delete_last_line():
 
@@ -88,7 +92,7 @@ def delete_last_line():
     CURSOR_UP_ONE = '\x1b[1A'
     ERASE_LINE = '\x1b[2K'
     sys.stdout.write(CURSOR_UP_ONE)
-    sys.stdout.write(ERASE_LINE) 
+    sys.stdout.write(ERASE_LINE)
+
 
 start()
-
