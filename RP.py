@@ -79,14 +79,14 @@ def showNetworkResource():
 
     # complete this function to monitor system network resource
     #print("\n_____________________________________________________Network Monitoring_____________________________________________________________\n")
-    print("| Bytes_sent | Bytes_received | Packets_sent | Packets_received | Error_incoming| Error_outgoing | Dropped_incoming | Dropped_outgoing")
+    print("| Bytes_sent | Bytes_received | Packets_sent | Packets_received | Error_in| Error_out | Dropped_in | Dropped_out")
     while(True):
         Bytes_sent, Bytes_received, Packets_sent, Packets_received = list(psutil.net_io_counters())[:4]
         Errin, Errout, Dropin, Dropout = list(psutil.net_io_counters())[4:]
         os.sep
         diskUse = psutil.disk_usage(os.sep).percent
 
-        print(f"| {Bytes_sent}    | {Bytes_received}      | {Packets_sent}        | {Packets_received} \t\t| {Errin} \t\t| {Errout} \t\t | {Dropin} \t\t    | {Dropout} ")
+        print(f"| {Bytes_sent}    | {Bytes_received}      | {Packets_sent}        | {Packets_received} \t\t| {Errin} \t  | {Errout} \t      | {Dropin} \t   | {Dropout} ")
 
         time.sleep(TIME_DELAY)
         delete_last_line()
@@ -95,10 +95,15 @@ def delete_last_line():
 
     # This function refreshes resource variables
 
+    if os.name == 'nt':
+        from ctypes import windll
+        k = windll.kernel32
+        k.SetConsoleMode(k.GetStdHandle(-11), 7)
+        
     CURSOR_UP_ONE = '\x1b[1A'
     ERASE_LINE = '\x1b[2K'
     sys.stdout.write(CURSOR_UP_ONE)
-    sys.stdout.write(ERASE_LINE) 
+    sys.stdout.write(ERASE_LINE)
 
 # start()
 showNetworkResource()
