@@ -39,7 +39,7 @@ def CPUnotif():
 
     # This function is to send in alert notifications in case of high CPU usage for 10s
 
-    plyer.notification.notify("ResourcePolice", "CPU Usage high!", duration=10)
+    plyer.notification.notify("ResourcePolice", "CPU Usage high!", timeout=10)
 
 
 def memNotif():
