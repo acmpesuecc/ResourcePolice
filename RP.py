@@ -78,8 +78,18 @@ def quit():
 def showNetworkResource():
 
     # complete this function to monitor system network resource
+    #print("\n_____________________________________________________Network Monitoring_____________________________________________________________\n")
+    print("| Bytes_sent | Bytes_received | Packets_sent | Packets_received | Error_incoming| Error_outgoing | Dropped_incoming | Dropped_outgoing")
+    while(True):
+        Bytes_sent, Bytes_received, Packets_sent, Packets_received = list(psutil.net_io_counters())[:4]
+        Errin, Errout, Dropin, Dropout = list(psutil.net_io_counters())[4:]
+        os.sep
+        diskUse = psutil.disk_usage(os.sep).percent
 
-    pass
+        print(f"| {Bytes_sent}    | {Bytes_received}      | {Packets_sent}        | {Packets_received} \t\t| {Errin} \t\t| {Errout} \t\t | {Dropin} \t\t    | {Dropout} ")
+
+        time.sleep(TIME_DELAY)
+        delete_last_line()
 
 def delete_last_line():
 
@@ -90,5 +100,6 @@ def delete_last_line():
     sys.stdout.write(CURSOR_UP_ONE)
     sys.stdout.write(ERASE_LINE) 
 
-start()
+# start()
+showNetworkResource()
 
