@@ -1,2 +1,2 @@
 psutil
-win10toast
+plyer
