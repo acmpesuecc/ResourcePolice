@@ -3,38 +3,39 @@ import os
 import time
 import sys
 import plyer
-
+from os import system, name
+from time import sleep
+import speedtest
 TIME_DELAY = 1.5
 
 
-def start():
-
-    # This function starts the monitoring process
-
-    print("| Memory | CPU | Disk |")
-    while(True):
-        vMem = psutil.virtual_memory().percent
-        cpuUtil = psutil.cpu_percent()
-        cpuFreq = psutil.cpu_freq()
-        os.sep
-        diskUse = psutil.disk_usage(os.sep).percent
-
-        print("|  {}  | {} | {} |".format(
-            str(vMem), str(cpuUtil), str(diskUse)))
-
-        if cpuUtil > 80.0:
-            CPUnotif()
-
-        if vMem > 70.0:
-            memNotif()
-
-        if diskUse > 90.0:
-            diskNotif()
-
-        time.sleep(TIME_DELAY)
-        delete_last_line()
-
-
+def menu():
+        choice=input("Enter which resource you want check : \nMemory(m)\nCPU(c)\nDisk(d)\nNetwork(n)\nQuit(q)\n")
+        choice=choice.lower()
+        clear()
+        if choice=="m":
+            vMem = psutil.virtual_memory().percent
+            if vMem > 70.0:
+                memNotif()
+            print("Memory:\t{}".format(str(vMem)))
+            menu()
+        if choice=="c":
+            cpuUtil = psutil.cpu_percent()
+            if cpuUtil > 80.0:
+                CPUnotif()
+            print("CPU:\t{}".format(str(cpuUtil)))
+            menu()
+        if choice=="d":
+            diskUse = psutil.disk_usage(os.sep).percent
+            if diskUse > 90.0:
+                diskNotif()
+            print("Disk:\t{}".format(str(diskUse)))
+            menu()
+        if choice=="n":
+            showNetworkResource()
+            menu()
+        if choice=="q":
+            quit()
 def CPUnotif():
 
     # This function is to send in alert notifications in case of high CPU usage for 10s
@@ -63,27 +64,13 @@ def diskNotif():
 #     'rp.network': showNetworkResource
 # } # lookup table for user-defined commands
 
-
-def stop():
-
-    # complete this function to stop monitoring
-
-    pass
-
-
 def quit():
-
-    # complete this function to quit ResourcePolice
-
-    pass
-
+    sys.exit()
 
 def showNetworkResource():
-
-    # complete this function to monitor system network resource
-
-    pass
-
+    st=speedtest.Speedtest()
+    print("Download Speed : ".format(st.download()))
+    print("Upload Speed : ".format(st.upload()))
 
 def delete_last_line():
 
@@ -94,5 +81,15 @@ def delete_last_line():
     sys.stdout.write(CURSOR_UP_ONE)
     sys.stdout.write(ERASE_LINE)
 
+def clear():
+  
+    # for windows
+    if name == 'nt':
+        _ = system('cls')
+  
+    # for mac and linux(here, os.name is 'posix')
+    else:
+        _ = system('clear')
 
-start()
+if __name__=="__main__":
+    menu()
