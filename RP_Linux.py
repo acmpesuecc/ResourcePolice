@@ -35,7 +35,9 @@ def start():
 
         time.sleep(TIME_DELAY)
         delete_last_line()
-        
+
+#This variable is to set the frequency of notifications
+notif_frequency=10       
 def CPUnotif():
 
     # This function is to send in alert notifications in case of high CPU usage
@@ -44,7 +46,7 @@ def CPUnotif():
     n.set_urgency(1)
 
     n.show()
-    time.sleep(10)
+    time.sleep(notif_frequency)
 
 def memNotif():
 
@@ -54,7 +56,7 @@ def memNotif():
     m.set_urgency(1)
 
     m.show()
-    time.sleep(10)
+    time.sleep(notif_frequency)
 
 def diskNotif():
 
@@ -64,7 +66,7 @@ def diskNotif():
     o.set_urgency(1)
 
     o.show()
-    time.sleep(10)
+    time.sleep(notif_frequency)
 # LOOKUP = {
 #     'rp.start': start,
 #     'rp.stop': stop,
