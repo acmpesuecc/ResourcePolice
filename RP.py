@@ -2,12 +2,18 @@ import psutil
 import os
 import time
 import sys
-import win10toast as w10Notif
+# import win10toast as w10Notif
 
 TIME_DELAY = 1.5
 
-def start():
+def get_size(bytes, suffix="B"):
+    factor = 1024
+    for unit in ["", "K", "M", "G", "T", "P"]:
+        if bytes < factor:
+            return f"{bytes:.2f}{unit}{suffix}"
+        bytes /= factor
 
+def start():
     # This function starts the monitoring process 
 
     print("| Memory | CPU | Disk |")
@@ -19,6 +25,25 @@ def start():
         diskUse = psutil.disk_usage(os.sep).percent
 
         print("|  {}  | {} | {} |".format(str(vMem), str(cpuUtil), str(diskUse)))
+
+        # get all network interfaces (virtual and physical)
+        if_addrs = psutil.net_if_addrs()
+        print(if_addrs)
+        for interface_name, interface_addresses in if_addrs.items():
+            for address in interface_addresses:
+                print(f"=== Interface: {interface_name} ===")
+                if str(address.family) == 'AddressFamily.AF_INET':
+                    print(f"  IP Address: {address.address}")
+                    print(f"  Netmask: {address.netmask}")
+                    print(f"  Broadcast IP: {address.broadcast}")
+                elif str(address.family) == 'AddressFamily.AF_PACKET':
+                    print(f"  MAC Address: {address.address}")
+                    print(f"  Netmask: {address.netmask}")
+                    print(f"  Broadcast MAC: {address.broadcast}")
+        # get IO statistics since boot
+        net_io = psutil.net_io_counters()
+        print(f"Total Bytes Sent: {get_size(net_io.bytes_sent)}")
+        print(f"Total Bytes Received: {get_size(net_io.bytes_recv)}")
 
         if cpuUtil > 80.0:
             CPUnotif()
