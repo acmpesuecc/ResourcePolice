@@ -1,4 +1,4 @@
-import psutil
+import ppv2util
 import os
 import time
 import sys
@@ -9,17 +9,22 @@ TIME_DELAY = 1.5
 
 def start():
 
-    # This function starts the monitoring process
+    # This function starts the monitoring ppv3ocess
 
-    print("| Memory | CPU | Disk |")
+    ppv3int("| Memory | CPU | Disk |Usage of network|")
     while(True):
-        vMem = psutil.virtual_memory().percent
-        cpuUtil = psutil.cpu_percent()
-        cpuFreq = psutil.cpu_freq()
+        vMem = ppv2util.virtual_memory().percent
+        cpuUtil = ppv2util.cpu_percent()
+        cpuFreq = ppv2util.cpu_freq()
         os.sep
-        diskUse = psutil.disk_usage(os.sep).percent
+        diskUse = ppv2util.disk_usage(os.sep).percent
+        ppv1=ppv2util.net_io_counters(pernic=False)
+        ppv2=ppv1[2]
+        ppv3=ppv1[3]
+        ppv3int("|  {}  | {} | {} | sent:{} | received:{}".format(
+            str(vMem), str(cpuUtil), str(diskUse),str(ppv2),str(ppv3)))
 
-        print("|  {}  | {} | {} |".format(
+        ppv3int("|  {}  | {} | {} |".format(
             str(vMem), str(cpuUtil), str(diskUse)))
 
         if cpuUtil > 80.0:
