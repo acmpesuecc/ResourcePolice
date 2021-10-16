@@ -3,6 +3,7 @@ import os
 import time
 import sys
 import plyer
+from tabulate import tabulate
 
 TIME_DELAY = 1.5
 
@@ -94,5 +95,30 @@ def delete_last_line():
     sys.stdout.write(CURSOR_UP_ONE)
     sys.stdout.write(ERASE_LINE)
 
+def network_stats():
+    Net = psutil.net_if_stats()
+    #print("| Interface | ISUP | Speed | MTU |")
+    table = [['Interface', 'ISUP', 'Speed', 'MTU']]
+    for key,value in Net.items():
+        temp_list = []
+        temp_list.append(key)
+        temp_list.append(value[0])
+        temp_list.append(value[2])
+        temp_list.append(value[3])
+        table.append(temp_list)
+        #print(temp_list)
+        #temp_list.clear()
+    #print(table)
+    print(tabulate(table, headers='firstrow'))
 
-start()
+#start()
+#network_stats()
+
+print("-----Resource Police-----")
+print("1. System stats")
+print("2. Network Interface stats")
+ans = int(input("Enter option : "))
+if(ans == 1):
+    start()
+if(ans == 2):
+    network_stats()
