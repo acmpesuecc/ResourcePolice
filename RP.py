@@ -24,9 +24,9 @@ def start():
         print("|  {}  | {} | {} |".format(
             str(vMem), str(cpuUtil), str(diskUse)))
         print('=========================')
-        network_stats = psutil.net_io_counters(pernic=True)['lo0']
-        bytes_sent = network_stats.bytes_sent
-        bytes_recv = network_stats.bytes_recv
+        network_stats = psutil.net_io_counters(pernic=False)
+        bytes_sent = network_stats[1]
+        bytes_recv = network_stats[2]
         print("| Bytes_sent | Bytes Recived |")
         print("| {} | {} |".format(str(bytes_sent),str(bytes_recv)))
         # print("==============================")
