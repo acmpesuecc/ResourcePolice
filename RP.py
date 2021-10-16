@@ -11,16 +11,18 @@ def start():
 
     # This function starts the monitoring process
 
-    print("| Memory | CPU | Disk |")
+    print("| Memory | CPU | Disk | Network")
     while(True):
         vMem = psutil.virtual_memory().percent
         cpuUtil = psutil.cpu_percent()
         cpuFreq = psutil.cpu_freq()
         os.sep
         diskUse = psutil.disk_usage(os.sep).percent
-
-        print("|  {}  | {} | {} |".format(
-            str(vMem), str(cpuUtil), str(diskUse)))
+        netUse=psutil.net_io_counters(pernic=False)
+        ps=netUse[2]
+        pr=netUse[3]
+        print("|  {}  | {} | {} |Pkts sent:{} |Pkts received:{}".format(
+            str(vMem), str(cpuUtil), str(diskUse),str(ps),str(pr)))
 
         if cpuUtil > 80.0:
             CPUnotif()
