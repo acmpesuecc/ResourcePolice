@@ -8,19 +8,20 @@ TIME_DELAY = 1.5
 
 
 def start():
-
     # This function starts the monitoring process
 
-    print("| Memory | CPU | Disk |")
-    while(True):
+    print("| Memory | CPU | Disk  |Network Usage in terms of packets")  # adding network to list of resources being printed
+    while (True):
         vMem = psutil.virtual_memory().percent
         cpuUtil = psutil.cpu_percent()
         cpuFreq = psutil.cpu_freq()
         os.sep
-        diskUse = psutil.disk_usage(os.sep).percent
-
-        print("|  {}  | {} | {} |".format(
-            str(vMem), str(cpuUtil), str(diskUse)))
+        diskUse = psutil.disk_usage(os.sep).percent  # updates resources usage
+        network_u = psutil.net_io_counters(pernic=False)
+        pack_s = network_u[2]  # packets being sent
+        pack_r = network_u[3]  # packets being received
+        print("|  {}  | {} | {} |Packets being sent:{} |Packets being received:{}".format(
+            str(vMem), str(cpuUtil), str(diskUse), str(pack_s), str(pack_r)))
 
         if cpuUtil > 80.0:
             CPUnotif()
@@ -36,14 +37,12 @@ def start():
 
 
 def CPUnotif():
-
     # This function is to send in alert notifications in case of high CPU usage for 10s
 
     plyer.notification.notify("ResourcePolice", "CPU Usage high!", timeout=10)
 
 
 def memNotif():
-
     # This function is to send in alert notifications in case of high RAM usage for 10s
 
     plyer.notification.notify(
@@ -51,10 +50,10 @@ def memNotif():
 
 
 def diskNotif():
-
     # This function is to send in alert notifications in case of high disk usage for 10s
 
     plyer.notification.notify("ResourcePolice", "Disk Usage high!", timeout=10)
+
 
 # LOOKUP = {
 #     'rp.start': start,
@@ -65,28 +64,24 @@ def diskNotif():
 
 
 def stop():
-
     # complete this function to stop monitoring
 
     pass
 
 
 def quit():
-
     # complete this function to quit ResourcePolice
 
     pass
 
 
 def showNetworkResource():
-
     # complete this function to monitor system network resource
 
     pass
 
 
 def delete_last_line():
-
     # This function refreshes resource variables
 
     CURSOR_UP_ONE = '\x1b[1A'
