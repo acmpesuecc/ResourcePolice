@@ -29,9 +29,9 @@ def start():
         bytes_recv = network_stats.bytes_recv
         print("| Bytes_sent | Bytes Recived |")
         print("| {} | {} |".format(str(bytes_sent),str(bytes_recv)))
-        print("==============================")
-        print('| Download Speed | Upload Speed |')
-        print('| {} | {} |'.format(str(st.download()), str(st.upload())))
+        # print("==============================")
+        # print('| Download Speed | Upload Speed |')
+        # print('| {} | {} |'.format(str(st.download()), str(st.upload())))
 
         if cpuUtil > 80.0:
             CPUnotif()
@@ -43,7 +43,6 @@ def start():
             diskNotif()
 
         time.sleep(TIME_DELAY)
-        delete_last_line()
         delete_last_line()
         delete_last_line()
         delete_last_line()
