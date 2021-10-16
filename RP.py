@@ -3,6 +3,7 @@ import os
 import time
 import sys
 import plyer
+import speedtest
 
 TIME_DELAY = 1.5
 
@@ -12,6 +13,7 @@ def start():
     # This function starts the monitoring process
 
     print("| Memory | CPU | Disk |")
+    st = speedtest.Speedtest()
     while(True):
         vMem = psutil.virtual_memory().percent
         cpuUtil = psutil.cpu_percent()
@@ -21,6 +23,15 @@ def start():
 
         print("|  {}  | {} | {} |".format(
             str(vMem), str(cpuUtil), str(diskUse)))
+        print('=========================')
+        network_stats = psutil.net_io_counters(pernic=True)['lo0']
+        bytes_sent = network_stats.bytes_sent
+        bytes_recv = network_stats.bytes_recv
+        print("| Bytes_sent | Bytes Recived |")
+        print("| {} | {} |".format(str(bytes_sent),str(bytes_recv)))
+        print("==============================")
+        print('| Download Speed | Upload Speed |')
+        print('| {} | {} |'.format(str(st.download()), str(st.upload())))
 
         if cpuUtil > 80.0:
             CPUnotif()
@@ -32,6 +43,10 @@ def start():
             diskNotif()
 
         time.sleep(TIME_DELAY)
+        delete_last_line()
+        delete_last_line()
+        delete_last_line()
+        delete_last_line()
         delete_last_line()
 
 
