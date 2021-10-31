@@ -4,7 +4,7 @@ import time
 import sys
 import plyer
 
-TIME_DELAY = 1.5
+TIME_DELAY = 1
 
 
 def start():
@@ -46,8 +46,7 @@ def memNotif():
 
     # This function is to send in alert notifications in case of high RAM usage for 10s
 
-    plyer.notification.notify(
-        "ResourcePolice", "Memory Usage high!", timeout=10)
+    plyer.notification.notify("ResourcePolice", "Memory Usage high!", timeout=10)
 
 
 def diskNotif():
@@ -67,14 +66,14 @@ def diskNotif():
 def stop():
 
     # complete this function to stop monitoring
-
+    
     pass
 
 
-def quit():
+def quit_RP():
 
     # complete this function to quit ResourcePolice
-
+    quit()
     pass
 
 
