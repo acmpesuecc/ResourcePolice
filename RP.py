@@ -3,6 +3,7 @@ import os
 import time
 import sys
 import plyer
+import platform
 
 TIME_DELAY = 1
 
@@ -10,8 +11,22 @@ TIME_DELAY = 1
 def start():
 
     # This function starts the monitoring process
+    
+    print("\n")
+    print("="*50)
+    print("System Resources:".center(50))
+    print("="*50)
 
-    print("| Memory | CPU | Disk |")
+    # disp = "| Memory usage | CPU usage | Disk usage |"
+    # print(disp.center(0))
+
+    dispList = ['Memory usage', 'CPU usage', 'Disk usage']
+    eqSpam = '=' * 50
+
+    print(eqSpam)
+    print('{:<12s}{:>12s}{:>12s}'.format(dispList[0],dispList[1],dispList[2]))
+    print(eqSpam)
+
     while(True):
         vMem = psutil.virtual_memory().percent
         cpuUtil = psutil.cpu_percent()
@@ -19,8 +34,11 @@ def start():
         os.sep
         diskUse = psutil.disk_usage(os.sep).percent
 
-        print("|  {}  | {} | {} |".format(
-            str(vMem), str(cpuUtil), str(diskUse)))
+        # outDisp = "|  {}  | {} | {} |".format(
+            # str(vMem), str(cpuUtil), str(diskUse))
+        
+        # print(outDisp.center(40))
+        print('{:<12.1f}{:>12.1f}{:>12.1f}'.format(vMem,cpuUtil,diskUse))
 
         if cpuUtil > 80.0:
             CPUnotif()
@@ -55,35 +73,6 @@ def diskNotif():
 
     plyer.notification.notify("ResourcePolice", "Disk Usage high!", timeout=10)
 
-# LOOKUP = {
-#     'rp.start': start,
-#     'rp.stop': stop,
-#     'rp.quit': quit,
-#     'rp.network': showNetworkResource
-# } # lookup table for user-defined commands
-
-
-def stop():
-
-    # complete this function to stop monitoring
-    
-    pass
-
-
-def quit_RP():
-
-    # complete this function to quit ResourcePolice
-    quit()
-    pass
-
-
-def showNetworkResource():
-
-    # complete this function to monitor system network resource
-
-    pass
-
-
 def delete_last_line():
 
     # This function refreshes resource variables
@@ -93,5 +82,24 @@ def delete_last_line():
     sys.stdout.write(CURSOR_UP_ONE)
     sys.stdout.write(ERASE_LINE)
 
+def fetchSystemInfo():
+    print("\n")
+    print("="*50)
+    print("System Information:".center(50))
+    print("="*50)
+    uname = platform.uname()
+    print(f"System: {uname.system}")
+    print(f"Node Name: {uname.node}")
+    print(f"Release: {uname.release}")
+    print(f"Version: {uname.version}")
+    print(f"Machine: {uname.machine}")
+    print(f"Processor: {uname.processor}")
 
+def introScreenLogo():
+    os.system("cls")
+    f = open('rplogo.txt', 'r')
+    print(''.join([line for line in f]))
+
+introScreenLogo()
+fetchSystemInfo()
 start()
