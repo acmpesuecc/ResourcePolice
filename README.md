@@ -1,6 +1,6 @@
 # ResourcePolice
 
-ResourcePolice is a simple system resource monitoring program for all platforms. This repo is beginner-friendly.
+ResourcePolice is a simple system resource monitoring tool for all platforms. This repo is beginner-friendly.
 
 ### Langauge used:
 
