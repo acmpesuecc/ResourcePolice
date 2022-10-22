@@ -92,7 +92,7 @@ def start():
 
        	
 
-        #print(netstat)
+        print(netstat)
 
         #print(netspeed)
 
