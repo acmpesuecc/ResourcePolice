@@ -84,19 +84,19 @@ def start():
 
         print('{:<12.1f}{:>12.1f}{:>12.1f}{:>12.1f}{:>12s}{:>12.1f}{:>12s}'.format(vMem,cpuUtil,diskUse,float(netspeed[1][15]),netspeed[1][16],float(netspeed[1][20]),netspeed[1][21]))
 
+	
 
+        nstat = list(netStatDisplay())[1].strip().split()
 
-        nstat = list(netStatDisplay())
+        #print(nstat)
 
         #nstat = netstat[1]
 
-	#string1 = nstat[1] + "  IP: "+ str(nstat[2][1:len(nstat[2])-1]) + "\t" + str(nstat[13]) + "\t" +str(nstat[14]) + str(nstat[15]) + "\n" + "Packets Received" + str(nstat[21]) + " | Packets "
+        #string = nstat[1][0][5:len(nstat[1][0])-] + "  IP: "+ str(nstat[1][2][1:len(nstat[1][2])-1]) + "\t" + str(nstat[1][13]) + "\t" +str(nstat[1][14]) + str(nstat[1][15]) + "\n" + "Packets Received " + str(nstat[1][21]) + " | Packets Transmitted : " + str(nstat[1][25]) + "\n" + "Packet Loss: " + str(nstat[1][26]) + " rtt: " + str(nstat[1][30])
 
-       	#string2 = "Transmitted : " + str(nstat[24]) + "\n" + "Packet Loss: " + str(nstat[26]) + " rtt: " + str(nstat[30])
+        #string = nstat[1] + "  IP: "+ str(nstat[2][1:len(nstat[2])-1]) + "\t" + str(nstat[13]) + "\t" +str(nstat[14]) + str(nstat[15]) + "\n" + "Packets Received" + str(nstat[21]) + " | Packets Transmitted : " + str(nstat[24]) + "\n" + "Packet Loss: " + str(nstat[26]) + " rtt: " + str(nstat[30])
 
-        #print(string1 + string2)
-
-        string = nstat[1][0] + "  IP: "+ str(nstat[1][2][1:len(nstat[1][2])-1]) + "\t" + str(nstat[1][13]) + "\t" +str(nstat[1][14]) + str(nstat[1][15]) + "\n" + "Packets Received" + str(nstat[1][21]) + " | Packets Transmitted : " + str(nstat[1][24]) + "\n" + "Packet Loss: " + str(nstat[1][26]) + " rtt: " + str(nstat[1][30])
+        string = nstat[1] + "  IP: "+ str(nstat[2][1:len(nstat[2])-1]) + "\t" + str(nstat[13]) + "\t" +str(nstat[14]) + str(nstat[15]) + "\n" + "Packets Received" + str(nstat[21]) + " | Packets Transmitted : " + str(nstat[24]) + "\n" + "Packet Loss: " + str(nstat[26]) + " rtt: " + str(nstat[30])
 
         print(string)
 
@@ -120,7 +120,7 @@ def start():
 
         time.sleep(TIME_DELAY)
 
-        #delete_last_line()
+        delete_last_line()
 
 
 
