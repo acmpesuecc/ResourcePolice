@@ -109,7 +109,7 @@ def introScreenLogo():
     '''
     Prints intro screen
     '''
-    os.system("cls") # fix cls issue
+    os.system("cls | clear") # fix cls issue
     f = open('rplogo.txt', 'r')
     print(''.join([line for line in f]))
 
