@@ -14,7 +14,7 @@ import subprocess
 
 
 
-TIME_DELAY = 1
+TIME_DELAY = 3
 
 
 
@@ -60,6 +60,8 @@ def start():
 
     while(True):
 
+    	
+
         vMem = psutil.virtual_memory().percent
 
         cpuUtil = psutil.cpu_percent()
@@ -70,7 +72,7 @@ def start():
 
         diskUse = psutil.disk_usage(os.sep).percent
 
-
+	
 
         # outDisp = "|  {}  | {} | {} |".format(
 
@@ -80,13 +82,19 @@ def start():
 
         # print(outDisp.center(40))
 
-        netspeed = list(netSpeedStatDisplay())
+        nstat = list(netStatDisplay())[1].strip().split()
 
-        print('{:<12.1f}{:>12.1f}{:>12.1f}{:>12.1f}{:>12s}{:>12.1f}{:>12s}'.format(vMem,cpuUtil,diskUse,float(netspeed[1][15]),netspeed[1][16],float(netspeed[1][20]),netspeed[1][21]))
+        state = netStatDisplay()[0] == True 
+
+        if(state == True):
+
+        	netspeed = list(netSpeedStatDisplay())
+
+        	print('{:<12.1f}{:>12.1f}{:>12.1f}{:>12.1f}{:>12s}{:>12.1f}{:>12s}'.format(vMem,cpuUtil,diskUse,float(netspeed[1][15]),netspeed[1][16],float(netspeed[1][20]),netspeed[1][21]))
 
 	
 
-        nstat = list(netStatDisplay())[1].strip().split()
+        
 
         #print(nstat)
 
@@ -96,9 +104,19 @@ def start():
 
         #string = nstat[1] + "  IP: "+ str(nstat[2][1:len(nstat[2])-1]) + "\t" + str(nstat[13]) + "\t" +str(nstat[14]) + str(nstat[15]) + "\n" + "Packets Received" + str(nstat[21]) + " | Packets Transmitted : " + str(nstat[24]) + "\n" + "Packet Loss: " + str(nstat[26]) + " rtt: " + str(nstat[30])
 
-        string = nstat[1] + "  IP: "+ str(nstat[2][1:len(nstat[2])-1]) + "\t" + str(nstat[13]) + "\t" +str(nstat[14]) + str(nstat[15]) + "\n" + "Packets Received" + str(nstat[21]) + " | Packets Transmitted : " + str(nstat[24]) + "\n" + "Packet Loss: " + str(nstat[26]) + " rtt: " + str(nstat[30])
+        	string = nstat[1] + "  IP: "+ str(nstat[2][1:len(nstat[2])-1]) + "\t" + str(nstat[13]) + "\t" +str(nstat[14]) + str(nstat[15]) + "\n" 	+ "Packets Received : " + str(nstat[21]) + " | Packets Transmitted : " + str(nstat[24]) + "\n" + "Packet Loss: " + str(nstat[26]) + " rtt: " + 	str(nstat[30])
 
-        print(string)
+        	print(string)
+
+        else:
+
+        	print("PING OFFLINE")
+
+        	netspeed = list(netSpeedStatDisplay())
+
+        	print('{:<12.1f}{:>12.1f}{:>12.1f}'.format(vMem,cpuUtil,diskUse))
+
+	
 
         if cpuUtil > 80.0:
 
@@ -120,7 +138,7 @@ def start():
 
         time.sleep(TIME_DELAY)
 
-        delete_last_line()
+        delete_last_line(state)
 
 
 
@@ -170,7 +188,7 @@ def diskNotif():
 
 
 
-def delete_last_line():
+def delete_last_line(state):
 
     '''
 
@@ -178,17 +196,27 @@ def delete_last_line():
 
     '''
 
-
+		
 
     CURSOR_UP_ONE = '\x1b[1A'
 
     ERASE_LINE = '\x1b[2K'
 
-    for i in range(4):
+    if (state == True):
 
-        sys.stdout.write(CURSOR_UP_ONE)
+    	for i in range(4):
 
-        sys.stdout.write(ERASE_LINE)
+        	sys.stdout.write(CURSOR_UP_ONE)
+
+        	sys.stdout.write(ERASE_LINE)
+
+    else:
+
+    	for i in range(2):
+
+    		sys.stdout.write(CURSOR_UP_ONE)
+
+    		sys.stdout.write(ERASE_LINE)
 
 
 
