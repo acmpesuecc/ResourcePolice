@@ -109,9 +109,16 @@ def introScreenLogo():
     '''
     Prints intro screen
     '''
-    os.system("cls | clear") #cls works for windows, and clear works for unix systems
-    f = open('rplogo.txt', 'r')
-    print(''.join([line for line in f]))
+    uname = platform.uname()
+    if "darwin" in {uname.system}:
+        os.system("clear") #clear works for unix systems
+        f = open('rplogo.txt', 'r')
+        print(''.join([line for line in f]))
+    else :
+        os.system("cls") #cls works for windows
+        f = open('rplogo.txt', 'r')
+        print(''.join([line for line in f]))
+
 
 def netStatDisplay():
     reply = subprocess.run(['ping','-c','1','www.google.com'],
@@ -124,6 +131,6 @@ def netStatDisplay():
         return False, reply.stderr
     return reply
 
-introScreenLogo()
+#introScreenLogo()
 fetchSystemInfo()
-start()
+#start()
