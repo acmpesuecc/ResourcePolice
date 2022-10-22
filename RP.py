@@ -86,15 +86,19 @@ def start():
 
 
 
-        netstat = netStatDisplay()
+        nstat = list(netStatDisplay())
 
-        
+        #nstat = netstat[1]
 
-       	
+	#string1 = nstat[1] + "  IP: "+ str(nstat[2][1:len(nstat[2])-1]) + "\t" + str(nstat[13]) + "\t" +str(nstat[14]) + str(nstat[15]) + "\n" + "Packets Received" + str(nstat[21]) + " | Packets "
 
-        print(netstat)
+       	#string2 = "Transmitted : " + str(nstat[24]) + "\n" + "Packet Loss: " + str(nstat[26]) + " rtt: " + str(nstat[30])
 
-        #print(netspeed)
+        #print(string1 + string2)
+
+        string = nstat[1][0] + "  IP: "+ str(nstat[1][2][1:len(nstat[1][2])-1]) + "\t" + str(nstat[1][13]) + "\t" +str(nstat[1][14]) + str(nstat[1][15]) + "\n" + "Packets Received" + str(nstat[1][21]) + " | Packets Transmitted : " + str(nstat[1][24]) + "\n" + "Packet Loss: " + str(nstat[1][26]) + " rtt: " + str(nstat[1][30])
+
+        print(string)
 
         if cpuUtil > 80.0:
 
