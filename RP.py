@@ -257,10 +257,9 @@ def introScreenLogo():
     '''
 
     Prints intro screen
-
+    
     '''
-
-    os.system("cls") # fix cls issue
+    os.system("cls | clear") #cls works for windows, and clear works for unix systems
 
     f = open('rplogo.txt', 'r')
 
