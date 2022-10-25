@@ -12,6 +12,7 @@ You can install the requirements by typing `pip install -r requirements.txt` in 
 
 - [psutil (5.8.0)](https://pypi.org/project/psutil)
 - [plyer (2.0.0)](https://pypi.org/project/plyer)
+- [pyobjus (1.2.1)](https://pypi.org/project/pyobjus/)
 
 ### Rules to contribute
 Check out these [Contributing Guidelines](https://github.com/acmpesuecc/ResourcePolice/blob/main/CONTRIBUTION.md) to learn more!
