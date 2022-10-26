@@ -38,7 +38,7 @@ def start():
 
 
 
-    # disp = "| Memory usage | CPU usage | Disk usage |"
+    disp = "| Memory usage | CPU usage | Disk usage |"
 
     # print(disp.center(0))
 
@@ -66,7 +66,7 @@ def start():
 
         cpuUtil = psutil.cpu_percent()
 
-        cpuFreq = psutil.cpu_freq()
+        #cpuFreq = psutil.cpu_freq()
 
         os.sep
 
@@ -315,4 +315,4 @@ introScreenLogo()
 
 fetchSystemInfo()
 
-start()
+#start()
